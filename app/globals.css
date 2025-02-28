@@ -1,24 +1,126 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-roboto: var(--font-roboto);
+
+  --color-primary: #11CFFF;
+  --color-accent: #6366F1;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 30, 41, 59;
+  --background-start-rgb: 249, 250, 251;
+  --background-end-rgb: 249, 250, 251;
+  --primary-rgb: 17, 207, 255;
+  --accent-rgb: 99, 102, 241;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground-rgb: 226, 232, 240;
+    --background-start-rgb: 15, 23, 42;
+    --background-end-rgb: 15, 23, 42;
+    --primary-rgb: 17, 207, 255;
+    --accent-rgb: 99, 102, 241;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    --background: 220 14% 98%;
+    --foreground: 222 47% 21%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 21%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 21%;
+    --primary: 192 100% 53%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 21%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 243 75% 67%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 192 100% 53%;
+    --chart-1: 192 100% 53%;
+    --chart-2: 243 75% 67%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 192 100% 53%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 243 75% 67%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 192 100% 53%;
+    --chart-1: 192 100% 53%;
+    --chart-2: 243 75% 67%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --primary-rgb: 17, 207, 255;
+    --accent-rgb: 99, 102, 241;
+  }
+}
+
+/* @layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} */
+
+.hero-gradient {
+  background: radial-gradient(circle at center, rgba(var(--primary-rgb), 0.1) 0%, rgba(var(--primary-rgb), 0) 70%);
+}
+
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* Hero Text Perspective */
+#home {
+  position: relative;
+  perspective: 1500px;
 }
