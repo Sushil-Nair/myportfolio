@@ -2,13 +2,11 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
 import {
   Form,
   FormControl,
@@ -17,47 +15,59 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import emailjs from "@emailjs/browser";
+import formSchema from "@/libs/formSchema";
 
-const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters" }),
-});
 
-export default function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-  
+
+export default function ContactForm() {const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       email: "",
+      phone: "",
       message: "",
     },
   });
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Message sent!",
-      description: "Thank you for your message. I'll get back to you soon.",
-    });
-    
-    form.reset();
+
+    try {
+      await emailjs.send(
+        "service_f6q2p9s",
+        "template_j3q9s2o",
+        {
+          from_name: data.name,
+          from_email: data.email,
+          from_phone: data.phone,
+          message: data.message,
+        },
+        "6lBt3T41Gqadcc6-l"
+      );
+
+      toast({
+        title: "Message sent!",
+        description: "Thank you for your message. I'll get back to you soon.",
+      });
+
+      form.reset();
+    } catch (error) {
+      console.error("Email sending failed:", error);
+      toast({
+        title: "Error!",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    }
+
     setIsSubmitting(false);
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} method="POST" data-netlify="true" className="space-y-6">
-        {/* Required Hidden Input for Netlify */}
-        <input type="hidden" name="form-name" value="contact" />
-
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="name"
@@ -86,6 +96,25 @@ export default function ContactForm() {
                 <Input
                   type="email"
                   placeholder="your.email@example.com"
+                  {...field}
+                  className="transition-all focus:ring-2 focus:ring-primary/20 focus:scale-[1.01]"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phone</FormLabel>
+              <FormControl>
+                <Input
+                  type="tel"
+                  placeholder="Mobile Number"
                   {...field}
                   className="transition-all focus:ring-2 focus:ring-primary/20 focus:scale-[1.01]"
                 />

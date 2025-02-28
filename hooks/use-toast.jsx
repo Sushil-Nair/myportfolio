@@ -3,30 +3,8 @@
 // Inspired by react-hot-toast library
 import * as React from 'react';
 
-/**
- * @typedef {Object} ToastProps
- * @property {string} [variant] - Toast variant ('default' or 'destructive')
- * @property {boolean} [open] - Whether the toast is open
- * @property {Function} [onOpenChange] - Callback when open state changes
- */
-
-/**
- * @typedef {React.ReactElement} ToastActionElement
- */
-
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
-
-/**
- * @typedef {Object} ToasterToast
- * @property {string} id - Unique identifier for the toast
- * @property {React.ReactNode} [title] - Toast title
- * @property {React.ReactNode} [description] - Toast description
- * @property {ToastActionElement} [action] - Action component for the toast
- * @property {string} [variant] - Toast variant ('default' or 'destructive')
- * @property {boolean} [open] - Whether the toast is open
- * @property {Function} [onOpenChange] - Callback when open state changes
- */
 
 const actionTypes = {
   ADD_TOAST: 'ADD_TOAST',
@@ -42,10 +20,6 @@ function genId() {
   return count.toString();
 }
 
-/**
- * @typedef {Object} State
- * @property {ToasterToast[]} toasts - Array of active toasts
- */
 
 const toastTimeouts = new Map();
 
@@ -65,12 +39,6 @@ const addToRemoveQueue = (toastId) => {
   toastTimeouts.set(toastId, timeout);
 };
 
-/**
- * Reducer function for toast state management
- * @param {State} state - Current state
- * @param {Object} action - Dispatch action
- * @returns {State} New state
- */
 export const reducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TOAST':
@@ -141,11 +109,6 @@ function dispatch(action) {
   });
 }
 
-/**
- * Create a new toast
- * @param {Object} props - Toast properties
- * @returns {Object} Toast control methods
- */
 function toast(props) {
   const id = genId();
 
@@ -175,10 +138,6 @@ function toast(props) {
   };
 }
 
-/**
- * Hook for using toasts
- * @returns {Object} Toast state and methods
- */
 function useToast() {
   const [state, setState] = React.useState(memoryState);
 
