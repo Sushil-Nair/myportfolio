@@ -7,6 +7,7 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import {
   Form,
   FormControl,
@@ -20,7 +21,10 @@ import formSchema from "@/libs/formSchema";
 
 
 
-export default function ContactForm() {const [isSubmitting, setIsSubmitting] = useState(false);
+export default function ContactForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {

@@ -91,8 +91,11 @@ const Navbar = () => {
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
           >
-            {theme === "light" && <Sun className="h-6 w-6 transition-all duration-300" />}
-            {theme === "dark" && <Moon className="h-6 w-6 transition-all duration-300" />}
+            {theme === "light" ? (
+              <Sun className="h-6 w-6 transition-all duration-300" />
+            ) : (
+              <Moon className="h-6 w-6 transition-all duration-300" />
+            )}
           </Button>
         </nav>
 
@@ -104,9 +107,13 @@ const Navbar = () => {
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
           >
-            {theme === "light" && <Sun className="h-6 w-6 transition-all duration-300" />}
-            {theme === "dark" && <Moon className="h-6 w-6 transition-all duration-300" />}
+            {theme === "light" ? (
+              <Sun className="h-6 w-6 transition-all duration-300" />
+            ) : (
+              <Moon className="h-6 w-6 transition-all duration-300" />
+            )}
           </Button>
+          
           <Button
             variant="ghost"
             size="icon"
